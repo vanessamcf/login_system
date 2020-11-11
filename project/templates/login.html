@@ -21,7 +21,7 @@
 <div class="card" >
 
 <article class="card-body">
-	<a href="" class="float-right btn btn-outline-primary">Sign up</a>
+	<a href="/signup" class="float-right btn btn-outline-primary">Sign up</a>
 	<h4 class="card-title mb-4 mt-1">Sign in</h4>
 	<p>
     <a href="" class="btn btn-block btn-outline-dark"> <i class="fab fa-github"></i>  Login with Github</a>
@@ -36,18 +36,18 @@
         </div>
     {% endif %}
     {% endwith %}                  
-  <form method="POST" action="/login">
-    <div class="form-group">
-        <input name="email" class="form-control" placeholder="Your email" type="email">
+    <form method="POST" action="/login">
+      <div class="form-group">
+        <input class="form-control" type="email" name="email" placeholder="user@user.com" autofocus="">
     </div> 
     <div class="form-group">
-        <input class="form-control" placeholder="******" type="password">
+        <input class="form-control" type="password" name="password" placeholder="******">
     </div>                 
     <div class="row">
         <div class="col-md-6">
             
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Login</button>
+                <button class="btn btn-primary btn-block"> Login</button>
             </div> 
         </div>
         <div class="col-md-6 text-right">
