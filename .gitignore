@@ -1,1 +1,3 @@
 draft.md
+.flaskenv
+project/templates/login_options.html

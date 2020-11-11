@@ -1,39 +1,68 @@
 {% extends "base.html" %}
-
 {% block content %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
-<div class="column is-4 is-offset-4">
-  <h3 class="title">Login</h3>
-  <div class="box">
+<style>
+  .container{
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+  }
+    
+</style>
 
+<div class="container">
+  
+<aside class="col-sm-4" >
+
+<div class="card" >
+
+<article class="card-body">
+	<a href="" class="float-right btn btn-outline-primary">Sign up</a>
+	<h4 class="card-title mb-4 mt-1">Sign in</h4>
+	<p>
+    <a href="" class="btn btn-block btn-outline-dark"> <i class="fab fa-github"></i>  Login with Github</a>
+    <a href="" class="btn btn-block btn-outline-danger"> <i class="fab fa-google"></i>  Login with Google</a>
+		<a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>  Login with Facebook</a>
+	</p>
+  <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="notification is-danger">
-      {{ messages[0] }}
-    </div>
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
     {% endif %}
-    {% endwith %}
-    
-    <form method="POST" action="/login">
-      <div class="field">
-        <div class="control">
-          <input class="input is-large" type="email" name="email" placeholder="user@user.com" autofocus="">  
+    {% endwith %}                  
+  <form method="POST" action="/login">
+    <div class="form-group">
+        <input name="email" class="form-control" placeholder="Your email" type="email">
+    </div> 
+    <div class="form-group">
+        <input class="form-control" placeholder="******" type="password">
+    </div>                 
+    <div class="row">
+        <div class="col-md-6">
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Login</button>
+            </div> 
         </div>
-      </div>
-      <div class="field">
-        <div class="control">
-            <input class="input is-large" type="password" name="password" placeholder="Your password">  
-        </div>
-      </div>
-      <div class="field">
-        <label class="checkbox">
-          <input type="checkbox">
-          Remember me
-        </label>
-      </div>
-      <button class="button is-block is-info is-large is-fullwidth">Login</button>
-    </form>
-  </div>
-</div>
+        <div class="col-md-6 text-right">
+            <a class="small" href="#">Forgot password?</a>
+        </div>                                            
+    </div>                                                                 
+</form>
+</article>
+</div> 
+
+	</aside> 
+	
+</div> 
+
+
+
 
 {% endblock %}
