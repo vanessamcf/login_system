@@ -6,11 +6,16 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
+
+# @auth.route('/sg_options')
+# def sg_options():
+#   return render_template('login_options.html')
+
 @auth.route('/login')
 def login():
-  return render_template('login.html')
+  return render_template('login.html') #inform data
 
-@auth.route('/login', methods=['POST'])
+@auth.route('/login', methods=['POST']) #get data and redirect to profile
 def login_post():
   email = request.form.get('email')
   password = request.form.get('password')
@@ -24,7 +29,8 @@ def login_post():
 
 #if the user has the right credentials
   login_user(user, remember = remember)
-  return redirect(url_for('main.profile'))  
+  return redirect(url_for('main.profile'))    
+
 
 @auth.route('/signup')
 def signup():
