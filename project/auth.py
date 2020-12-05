@@ -21,15 +21,15 @@ def login_post():
   password = request.form.get('password')
   remember = True if request.form.get('remember') else False
 
-  user = User.query.filter_by(email = email).first()
+  user = User.query.filter_by(email=email).first()
 
   if not user or not check_password_hash(user.password, password):
-    flash('Please check your login details and try again.')
-    return redirect(url_for('auth.login'))
+      flash('Please check your login details and try again.')
+      return redirect(url_for('auth.login'))
 
 #if the user has the right credentials
-  login_user(user, remember = remember)
-  return redirect(url_for('main.profile'))    
+  login_user(user, remember=remember)
+  return redirect(url_for('main.profile')) 
 
 
 @auth.route('/signup')
@@ -39,8 +39,9 @@ def signup():
 @auth.route('/signup', methods=['POST'])
 def signup_post():
   # code to validate and add user to db goes here
+  firstname = request.form.get('firstname')
+  lastname = request.form.get('lastname')
   email = request.form.get('email')
-  name = request.form.get('name')
   password = request.form.get('password')
 
   user = User.query.filter_by(email = email).first() #if returns a user, the email is already in the db
@@ -50,7 +51,7 @@ def signup_post():
     return redirect(url_for('auth.signup'))
   
   #create user
-  new_user = User(email = email, name = name, password = generate_password_hash(password, method='sha256'))
+  new_user = User(firstname = firstname, lastname = lastname, email = email, password = generate_password_hash(password, method='sha256'))
 
   db.session.add(new_user)
   db.session.commit()
@@ -62,3 +63,4 @@ def signup_post():
 def logout():
   logout_user()
   return redirect(url_for('main.index'))   
+
