@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <section class="hero is-primary is-fullheight">
+  <section class="hero has-background-info-light is-fullheight">
 
     <div class="hero-head">
       <nav class="navbar">
@@ -18,24 +18,24 @@
 
           <div id="navbarMenuHeroA" class="navbar-menu">
             <div class="navbar-end">
-              <a href="{{ url_for('main.index') }}" class="navbar-item">
+              <a href="{{ url_for('main.index') }}" class="navbar-item button is-info is-light">
                 Home
               </a>
               {% if current_user.is_authenticated %}
-              <a href="{{ url_for('main.profile') }}" class="navbar-item">
+              <a href="{{ url_for('main.profile') }}" class="navbar-item button is-info is-light">
                 Profile
               </a>
               {% endif %}
               {% if not current_user.is_authenticated %}
-              <a href="{{ url_for('auth.login') }}" class="navbar-item">
+              <a href="{{ url_for('auth.login') }}" class="navbar-item button is-info is-light">
                 Login
               </a>
-              <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+              <a href="{{ url_for('auth.signup') }}" class="navbar-item button is-info is-light">
                 Sign Up
               </a>
               {% endif %}
               {% if current_user.is_authenticated %}
-              <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+              <a href="{{ url_for('auth.logout') }}" class="navbar-item button is-info is-light">
                 Logout
               </a>
               {% endif %}
