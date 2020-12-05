@@ -1,3 +1,7 @@
 draft.md
 .flaskenv
 project/templates/login_options.html
+project/social_auth.py
+__pycacheproject/__pycache____
+.vscode
+env
