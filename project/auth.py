@@ -6,11 +6,6 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
-
-# @auth.route('/sg_options')
-# def sg_options():
-#   return render_template('login_options.html')
-
 @auth.route('/login')
 def login():
   return render_template('login.html') #inform data
