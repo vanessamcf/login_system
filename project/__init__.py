@@ -1,7 +1,7 @@
 # create app/ initialize db and register our blueprints
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager 
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 
@@ -17,7 +17,7 @@ def create_app():
   login_manager.login_view = 'auth.login'
   login_manager.init_app(app)
 
-  from .models import User
+  from .models import User, OAuth
 
   @login_manager.user_loader
   def load_user(user_id): #user_id is the primary key
@@ -26,6 +26,19 @@ def create_app():
   #blueprints auth routes
   from .auth import auth as auth_blueprint
   app.register_blueprint(auth_blueprint)
+
+  from .social_login import github_blueprint
+  app.register_blueprint(github_blueprint, url_prefix = "/login")
+
+  from .social_login import google_blueprint
+  app.register_blueprint(google_blueprint, url_prefix = "/login")
+
+  from .social_login import facebook_blueprint
+  app.register_blueprint(facebook_blueprint, url_prefix = "/login")
+  #/facebook_login
+
+
+
 
   #non-auth parts
   from .main import main as main_blueprint
