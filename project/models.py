@@ -18,18 +18,5 @@ class OAuth(OAuthConsumerMixin, db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable = False)
   user = db.relationship(User)
 
-  """
 
-  Update Social login github part: https://github.com/singingwolfboy/flask-dance-multi-provider
-
-  Update models.py OAuth class
-
-  Organize:
-
-  __init__.py
-  models.py
-  auth.py
-
-
-  need to remove db and create new again """
 
