@@ -142,6 +142,7 @@ def google_error(blueprint, message, response):
 # @login_required
 # def logout():
 
-#FACEBOOK
+# FACEBOOK
+
 
   
