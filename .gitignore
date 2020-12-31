@@ -142,3 +142,6 @@ dmypy.json
 cython_debug/
 
 .vscode
+env
+__pycache__
+.flaskenv

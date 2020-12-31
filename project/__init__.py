@@ -35,10 +35,6 @@ def create_app():
 
   from .social_login import facebook_blueprint
   app.register_blueprint(facebook_blueprint, url_prefix = "/login")
-  #/facebook_login
-
-
-
 
   #non-auth parts
   from .main import main as main_blueprint

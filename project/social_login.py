@@ -1,6 +1,6 @@
 
-from flask import Flask, render_template, redirect, url_for, flash
-from flask_login import current_user, login_user
+from flask import Flask, render_template, redirect, url_for, flash, Blueprint
+from flask_login import current_user, login_user, login_required
 from flask_dance.contrib.github import make_github_blueprint, github
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.contrib.facebook import make_facebook_blueprint, facebook
@@ -9,10 +9,16 @@ from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from sqlalchemy.orm.exc import NoResultFound
 from . import db
 from .models import User, OAuth
+# from .auth import logout
 
 github_blueprint = make_github_blueprint(client_id = 'YOUR CLIENT ID', client_secret = 'YOUR CLIENT SECRET')
 
-google_blueprint = make_google_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET")
+google_blueprint = make_google_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET",  scope=[
+        "openid",
+        "https://www.googleapis.com/auth/userinfo.email",
+        "https://www.googleapis.com/auth/userinfo.profile",
+    ]
+)
 
 facebook_blueprint = make_facebook_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET")
 
@@ -22,6 +28,7 @@ google_bp = make_google_blueprint(storage = SQLAlchemyStorage(OAuth, db.session,
 
 facebook_bp = make_facebook_blueprint(storage = SQLAlchemyStorage(OAuth, db.session, user = current_user))
 
+# auth = Blueprint('auth', __name__)
 
 @oauth_authorized.connect_via(github_blueprint)
 def github_logged_in(blueprint, token):
@@ -115,9 +122,9 @@ def google_logged_in(blueprint, token):
             user = User(username = google_info["email"])
             oauth.user = user
             db.session.add_all([user, oauth])
-            db.commit()
+            db.session.commit()
             login_user(user)
-            flash("Successfully signed in.")
+            flash("Successfully signed in with Google.")
     else:
         if oauth.user:
             if current_user != oauth.user:
@@ -138,8 +145,10 @@ def google_error(blueprint, message, response):
     )    
     flash(msg, category = "error")
 
+#FACEBOOK
+
 # @auth.route("/logout")
 # @login_required
 # def logout():
-
-#FACEBOOK
+#     logout_user()
+#     return redirect(url_for("main.index"))
