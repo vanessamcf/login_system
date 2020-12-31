@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, redirect, url_for, flash, Blueprint
 from flask_login import current_user, login_user, login_required
 from flask_dance.contrib.github import make_github_blueprint, github
@@ -9,7 +8,6 @@ from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from sqlalchemy.orm.exc import NoResultFound
 from . import db
 from .models import User, OAuth
-# from .auth import logout
 
 github_blueprint = make_github_blueprint(client_id = 'YOUR CLIENT ID', client_secret = 'YOUR CLIENT SECRET')
 
@@ -20,15 +18,16 @@ google_blueprint = make_google_blueprint(client_id= "YOUR CLIENT ID", client_sec
     ]
 )
 
-facebook_blueprint = make_facebook_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET")
+facebook_blueprint = make_facebook_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET", scope = [
+    "email"
+    ]
+)
 
 github_bp = make_github_blueprint(storage = SQLAlchemyStorage(OAuth, db.session, user = current_user))
 
 google_bp = make_google_blueprint(storage = SQLAlchemyStorage(OAuth, db.session, user = current_user))
 
 facebook_bp = make_facebook_blueprint(storage = SQLAlchemyStorage(OAuth, db.session, user = current_user))
-
-# auth = Blueprint('auth', __name__)
 
 @oauth_authorized.connect_via(github_blueprint)
 def github_logged_in(blueprint, token):
@@ -78,7 +77,9 @@ def github_logged_in(blueprint, token):
             db.session.commit()
             flash("Successfully linked GitHub account.")
 
-    return False
+    return redirect(url_for("main.profile"))                        
+
+    # return False
 
 @oauth_error.connect_via(github_blueprint)
 def github_error(blueprint, message, response):
@@ -135,8 +136,8 @@ def google_logged_in(blueprint, token):
             db.session.add(oauth)
             db.commit()
             flash("Successfully linked Google account.")
-    return False
 
+    return redirect(url_for("main.profile"))                        
 
 @oauth_error.connect_via(google_blueprint)
 def google_error(blueprint, message, response):
@@ -145,10 +146,32 @@ def google_error(blueprint, message, response):
     )    
     flash(msg, category = "error")
 
-#FACEBOOK
+@oauth_authorized.connect_via(facebook_blueprint)
+def facebook_logged_in(blueprint,token):
+    if not token:
+        flash("Failed to log in {name}".format(name = blueprint.name))
+        return
+    resp = blueprint.session.get("/me")
+    if resp.ok:
+        facebook_username = resp.json()["name"]    
+        query = User.query.filter_by(username =facebook_username)
+        try:
+            user = query.one()
+        except NoResultFound:
+            user = User(username = facebook_username)
+            oauth.user = user
+            db.session.add(user)
+            db.session.commit()
+        login_user(user)
+        flash("Successfully signed in with Facebook.")
+    else:
+        msg = "Failed to fetch user info from {name}".format(name = blueprint.name)
+        flash(msg, category="error")
+    return redirect(url_for("main.profile"))                        
 
-# @auth.route("/logout")
-# @login_required
-# def logout():
-#     logout_user()
-#     return redirect(url_for("main.index"))
+@oauth_error.connect_via(facebook_blueprint)
+def facebook_error(blueprint, message, response):
+    msg = ("OAuth error from {name}! " "message={message} response={response}").format(
+        name=blueprint.name, message=message, response=response
+    )
+    flash(msg, category="error")                 
