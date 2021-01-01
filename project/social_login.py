@@ -39,15 +39,16 @@ def github_logged_in(blueprint, token):
         msg = "Failed to fecth user info from GitHub."
         flash(msg, category= "error")
         return
-    github_info = resp.json()
-    github_user_id = str(github_info["id"])
+
+    github_name = resp.json()["name"]
+    github_user_id = resp.json()["id"]
 
     query = OAuth.query.filter_by(
         provider = blueprint.name, provider_user_id = github_user_id)
     try:
         oauth = query.one()
     except NoResultFound:
-        github_user_login = str(github_info["login"])
+        github_user_login = github_name
         oauth = OAuth(
             provider = blueprint.name,
             provider_user_id = github_user_id,
@@ -60,7 +61,7 @@ def github_logged_in(blueprint, token):
             login_user(oauth.user)
             # flash("Successfully signed in with GitHub.")
         else:
-            user = User(username = github_info["login"])
+            user = User(username = github_name)
             oauth.user = user
             db.session.add_all([user, oauth])
             db.session.commit()
@@ -78,8 +79,6 @@ def github_logged_in(blueprint, token):
             # flash("Successfully linked GitHub account.")
 
     return redirect(url_for("main.profile"))                        
-
-    # return False
 
 @oauth_error.connect_via(github_blueprint)
 def github_error(blueprint, message, response):
@@ -99,8 +98,8 @@ def google_logged_in(blueprint, token):
         flash(msg, category="error")
         return
 
-    google_info = resp.json()
-    google_user_id = google_info["id"]
+    google_name = resp.json()["name"]
+    google_user_id = resp.json()["id"]
 
     query = OAuth.query.filter_by(
         provider = blueprint.name, provider_user_id = google_user_id
@@ -108,7 +107,8 @@ def google_logged_in(blueprint, token):
     try:
         oauth = query.one()
     except NoResultFound:
-        google_user_login = str(google_info["email"])
+        google_user_login = google_name
+
         oauth = OAuth(
             provider=blueprint.name,
             provider_user_id=google_user_id,
@@ -120,7 +120,8 @@ def google_logged_in(blueprint, token):
             login_user(oauth.user)
             # flash("Successfully signed in with Google.")
         else:
-            user = User(username = google_info["email"])
+            user = User(username = google_name)
+
             oauth.user = user
             db.session.add_all([user, oauth])
             db.session.commit()
@@ -150,13 +151,13 @@ def google_error(blueprint, message, response):
 def facebook_logged_in(blueprint,token):                  
     if not token:
         flash("Failed to log in.", category="error")
-        return False
+        return 
 
     resp = blueprint.session.get("/me")
     if not resp.ok:
         msg = "Failed to fetch user info."
         flash(msg, category="error")
-        return False
+        return 
 
     facebook_name = resp.json()["name"]
     facebook_user_id = resp.json()["id"]
@@ -183,7 +184,7 @@ def facebook_logged_in(blueprint,token):
         db.session.add_all([user, oauth])
         db.session.commit()
         login_user(user)
-        flash("Successfully signed in with Facebook.")
+        # flash("Successfully signed in with Facebook.")
     return redirect(url_for("main.profile"))                   
 
 @oauth_error.connect_via(facebook_blueprint)
