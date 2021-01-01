@@ -58,14 +58,14 @@ def github_logged_in(blueprint, token):
     if current_user.is_anonymous:
         if oauth.user:
             login_user(oauth.user)
-            flash("Successfully signed in with GitHub.")
+            # flash("Successfully signed in with GitHub.")
         else:
             user = User(username = github_info["login"])
             oauth.user = user
             db.session.add_all([user, oauth])
             db.session.commit()
             login_user(user)
-            flash("Successfully signed in with GitHub.")
+            # flash("Successfully signed in with GitHub.")
     else:
         if oauth.user:
             if current_user != oauth.user:
@@ -75,7 +75,7 @@ def github_logged_in(blueprint, token):
             oauth.user =current_user
             db.session.add(oauth)
             db.session.commit()
-            flash("Successfully linked GitHub account.")
+            # flash("Successfully linked GitHub account.")
 
     return redirect(url_for("main.profile"))                        
 
@@ -118,14 +118,14 @@ def google_logged_in(blueprint, token):
     if current_user.is_anonymous:        
         if oauth.user:
             login_user(oauth.user)
-            flash("Successfully signed in with Google.")
+            # flash("Successfully signed in with Google.")
         else:
             user = User(username = google_info["email"])
             oauth.user = user
             db.session.add_all([user, oauth])
             db.session.commit()
             login_user(user)
-            flash("Successfully signed in with Google.")
+            # flash("Successfully signed in with Google.")
     else:
         if oauth.user:
             if current_user != oauth.user:
@@ -147,27 +147,44 @@ def google_error(blueprint, message, response):
     flash(msg, category = "error")
 
 @oauth_authorized.connect_via(facebook_blueprint)
-def facebook_logged_in(blueprint,token):
+def facebook_logged_in(blueprint,token):                  
     if not token:
-        flash("Failed to log in {name}".format(name = blueprint.name))
-        return
+        flash("Failed to log in.", category="error")
+        return False
+
     resp = blueprint.session.get("/me")
-    if resp.ok:
-        facebook_username = resp.json()["name"]    
-        query = User.query.filter_by(username =facebook_username)
-        try:
-            user = query.one()
-        except NoResultFound:
-            user = User(username = facebook_username)
-            oauth.user = user
-            db.session.add(user)
-            db.session.commit()
+    if not resp.ok:
+        msg = "Failed to fetch user info."
+        flash(msg, category="error")
+        return False
+
+    facebook_name = resp.json()["name"]
+    facebook_user_id = resp.json()["id"]
+
+    query = OAuth.query.filter_by(
+        provider = blueprint.name, 
+        provider_user_id = facebook_user_id
+    )
+    try:
+        oauth = query.one()
+    except NoResultFound:
+        oauth = OAuth(
+            provider = blueprint.name, 
+            provider_user_id = facebook_user_id, 
+            token = token
+        )
+
+    if oauth.user:
+        login_user(oauth.user)
+        # flash("Successfully signed in with Facebook.")
+    else:
+        user = User(username = facebook_name)
+        oauth.user = user
+        db.session.add_all([user, oauth])
+        db.session.commit()
         login_user(user)
         flash("Successfully signed in with Facebook.")
-    else:
-        msg = "Failed to fetch user info from {name}".format(name = blueprint.name)
-        flash(msg, category="error")
-    return redirect(url_for("main.profile"))                        
+    return redirect(url_for("main.profile"))                   
 
 @oauth_error.connect_via(facebook_blueprint)
 def facebook_error(blueprint, message, response):
