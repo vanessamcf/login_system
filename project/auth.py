@@ -26,6 +26,7 @@ def login_post():
     return redirect(url_for('auth.login'))
 
   login_user(user, remember=remember)
+
   return redirect(url_for('main.profile')) 
 
 def send_email(user):
@@ -65,7 +66,6 @@ def reset_verified(token):
   # if len(password or ()) < 8:
   #   flash('Your password needs to be at least 8 characters', 'error')     
   if password:
-    user = User.query.filter_by(id=user.id).first()
     hashed_password = generate_password_hash(password, method='sha256')
     user.password = hashed_password
 

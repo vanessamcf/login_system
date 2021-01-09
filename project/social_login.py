@@ -23,6 +23,7 @@ facebook_blueprint = make_facebook_blueprint(client_id= "YOUR CLIENT ID", client
     ]
 )
 
+
 github_bp = make_github_blueprint(storage = SQLAlchemyStorage(OAuth, db.session, user = current_user))
 
 google_bp = make_google_blueprint(storage = SQLAlchemyStorage(OAuth, db.session, user = current_user))
