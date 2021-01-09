@@ -1,12 +1,6 @@
-
-
 {% extends "base.html" %}
 
 {% block content %}
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
 <style>
   .container{
@@ -38,23 +32,30 @@
 
 <article class="card-body">
 	<a href="/signup" class="float-right btn btn-outline-success">Sign up</a>
-	<h4 class="card-title mb-4 mt-1">Sign in</h4>
+	<h4 class="card-title mb-4 mt-1 text-center">Sign in</h4>
 	<p>
-    <a class="btn btn-block btn-outline-dark" href="{{ url_for("github.login") }}"> <i class="fab fa-github"></i>  Login with Github</a>
-    <a class="btn btn-block btn-outline-danger" href="{{ url_for("google.login") }}">  <i class="fab fa-google"></i>  Login with Google</a>
-		<a class="btn btn-block btn-outline-primary" href="{{ url_for("facebook.login") }}">  <i class="fab fa-facebook-f"></i>  Login with Facebook</a>
+    <a class="btn btn-block btn-outline-dark" href="{{ url_for('github.login') }}"> <i class="fab fa-github"></i>  Login with Github</a>
+    <a class="btn btn-block btn-outline-danger" href="{{ url_for('google.login') }}">  <i class="fab fa-google"></i>  Login with Google</a>
+		<a class="btn btn-block btn-outline-primary" href="{{ url_for('facebook.login') }}">  <i class="fab fa-facebook-f"></i>  Login with Facebook</a>
   </p>
   <hr>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-    {% endif %}
-    {% endwith %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'message' %}
+              <div class="alert alert-danger" role="alert">
+            {% else %}
+              <div class="alert alert-{{ category }}" role="alert">
+            {% endif %}
+              {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+  {% endwith %}
+
     <form method="POST" action="/login">
       <div class="form-group">
-        <input name="email" class="form-control" placeholder="Your email" type="email" autofocus="">
+        <input name="email" class="form-control" placeholder="user@user.com" type="email" autofocus="">
       </div> 
       <div class="form-group">
         <input name="password" class="form-control" placeholder="********" type="password">
@@ -70,13 +71,12 @@
             <button type="submit" class="btn btn-primary btn-block"> Login</button>
           </div> 
           <div class="col-md-12 text-right">
-              <a class="small" href="#">Forgot password?</a>
+              <a class="small" href="{{ url_for('auth.reset') }}">Forgot password?</a>
           </div>                                               
       </div>                                                                 
     </form>
 </article>
 </div> 
-
 </aside> 
 
 </div>

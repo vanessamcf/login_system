@@ -1,28 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
 <style>
   .container{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 60px;  
+    /* padding-bottom: 60px;   */
   }
 </style>
+
 <div class="container">
 
-  <aside class="col-sm-4">
+  <aside class="col col-sm-5">
     <div class="card">
       <article class="card-body">
-        <h4 class="card-title mb-4 mt-1">Sign Up</h4>
+        <h4 class="card-title mb-4 mt-1 text-center">Sign Up</h4>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <div class="notification is-danger">
+        <div class="alert alert-warning">
           {{ messages[0]}}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
         </div>
         {% endif %}
@@ -31,9 +28,6 @@
           <div class="form-group">
               <input name="username" class="form-control" placeholder="Name" type="text" autofocus="">  
           </div>
-          <!-- <div class="form-group">
-              <input name="lastname" class="form-control" placeholder="Last name" type="text" autofocus="">  
-          </div> -->
           <div class="form-group">
               <input name="email" class="form-control" placeholder="user@user.com" type="email" autofocus="">
           </div>
@@ -43,10 +37,8 @@
           <button type="submit" class="btn btn-info btn-block">Sign Up</button>
         </form>
       </div>
-    </div>
 
-      </article>
     </div>
+      </article>
   </aside>
-</div>
 {% endblock %}

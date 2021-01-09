@@ -1,0 +1,14 @@
+
+{% block content %}
+
+<h2>Hi{{ username }}! </h2>
+<p>To reset your password, please click the button below:</p>
+
+<a href="{{ url_for('auth.reset_verified', user = user, token = token, _external = True) }}" 
+style="background-color:#1e63b8!important;border-radius:3px!important;color:#ffffff!important;display:inline-block!important;font-family:Helvetica Neue,Helvetica,Arial,sans-serif!important;font-size:14px!important;font-weight:600!important;line-height:20px!important;text-align:center!important;text-decoration:none!important;padding:10px 25px!important;margin:0!important" 
+>Reset my <span>password</span></a>
+
+
+<p><strong>Please note:</strong> if you don't act within 5 minutes, you will have to <i>submit a new request</i>.</p>
+
+{% endblock %}

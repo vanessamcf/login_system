@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+  .container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 60px;  
+  }
+</style>
+<div class="container">
+
+  <aside class="col-sm-5">
+    <div class="card">
+      <article class="card-body">
+        <h4 class="card-title mb-4 mt-1 text-center">Reset Password</h4>
+        <p>Please enter your email. We will send an email to reset your password.</p>
+        <form method="POST" action="{{ url_for('auth.reset') }}">
+
+          <div class="form-group">
+              <input name="email" class="form-control" placeholder="user@user.com" type="email" autofocus="">
+          </div>
+          <button type="submit" class="btn btn-info btn-block">Submit</button>
+        </form>
+      </div>
+    </div>
+
+      </article>
+    </div>
+  </aside>
+</div>
+{% endblock %}
