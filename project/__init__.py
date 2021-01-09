@@ -2,20 +2,37 @@
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_jwt_extended import JWTManager
+from flask_mail import Mail
+import os 
+
 
 db = SQLAlchemy()
+jwt = JWTManager()
+mail = Mail()
+
 
 def create_app():
   app = Flask(__name__)
 
   app.config['SECRET_KEY'] = 'key-goes-here'
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+  app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+  app.config['MAIL_PORT'] = 587
+  app.config['MAIL_USE_TLS'] = True
+  app.config['MAIL_USERNAME'] = 'username@gmail.com'
+  app.config['MAIL_PASSWORD'] = "password"
+
 
   db.init_app(app)
+
 
   login_manager = LoginManager()
   login_manager.login_view = 'auth.login'
   login_manager.init_app(app)
+
+  jwt.init_app(app)
+  mail.init_app(app)
 
   from .models import User, OAuth
 
