@@ -1,9 +1,7 @@
 draft.md
 .flaskenv
-project/templates/login_options.html
-# Byte-compiled / optimized / DLL files
+db.sqlite
 __pycache__/
-*/__pycache__/*
 *.py[cod]
 *$py.class
 
@@ -140,9 +138,3 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-
-.vscode
-env
-__pycache__
-.flaskenv
-

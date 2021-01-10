@@ -20,13 +20,18 @@ def login_post():
   remember = True if request.form.get('remember') else False
 
   user = User.query.filter_by(email=email).first()
+  print(user.__dict__)
+  print(dir(user))
+  print(user)
 
   if not user or not check_password_hash(user.password, password):
     flash('Please check your login details and try again.', 'danger')
     return redirect(url_for('auth.login'))
 
   login_user(user, remember=remember)
-
+  print(user.__dict__)
+  print(dir(user))
+  print(user)
   return redirect(url_for('main.profile')) 
 
 def send_email(user):
@@ -34,14 +39,16 @@ def send_email(user):
 
   msg = Message()
   msg.subject = "Login System: Password Reset Request"
-  msg.sender = 'username@gmail.com'
+  msg.sender = 'vanessamcformigoni@gmail.com'
   msg.recipients = [user.email]
   msg.html = render_template('reset_pwd.html', user = user, token = token)
 
   mail.send(msg)
 
+
 @auth.route('/reset', methods=['GET','POST'])
 def reset():
+
   if request.method == "GET":
     return render_template('reset.html')
 
@@ -58,6 +65,9 @@ def reset():
 def reset_verified(token):
   user = User.verify_reset_token(token)
 
+  print(user.__dict__)
+  print(dir(user))
+  print(user)
   if not user:
     flash('User not found or token has expired', 'warning')
     return redirect(url_for('auth.reset'))
@@ -68,7 +78,9 @@ def reset_verified(token):
   if password:
     hashed_password = generate_password_hash(password, method='sha256')
     user.password = hashed_password
-
+    print(user.__dict__)
+    print(dir(user))
+    print(user)
     db.session.commit()
     flash('Your password has been updated! You are now able to log in', 'success')
     return redirect(url_for('auth.login'))

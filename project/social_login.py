@@ -9,20 +9,19 @@ from sqlalchemy.orm.exc import NoResultFound
 from . import db
 from .models import User, OAuth
 
-github_blueprint = make_github_blueprint(client_id = 'YOUR CLIENT ID', client_secret = 'YOUR CLIENT SECRET')
+github_blueprint = make_github_blueprint(client_id = '300ab5a1b76f4420643e', client_secret = '2595203ae90079ca98f731cce5ff6b6a569f52c3')
 
-google_blueprint = make_google_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET",  scope=[
+google_blueprint = make_google_blueprint(client_id= "1090468009131-v3t7df612bj0nc8vu4k60a84hq5f4h46.apps.googleusercontent.com", client_secret= "jh7OELB0RukDRUmYvFWNWhCh",  scope=[
         "openid",
         "https://www.googleapis.com/auth/userinfo.email",
         "https://www.googleapis.com/auth/userinfo.profile",
     ]
 )
 
-facebook_blueprint = make_facebook_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET", scope = [
+facebook_blueprint = make_facebook_blueprint(client_id= "375263070388104", client_secret= "1ec14db8d4328b566c6c8b972b24bbfc", scope = [
     "email"
     ]
 )
-
 
 github_bp = make_github_blueprint(storage = SQLAlchemyStorage(OAuth, db.session, user = current_user))
 
