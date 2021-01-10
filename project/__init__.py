@@ -1,4 +1,3 @@
-# create app/ initialize db and register our blueprints
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
