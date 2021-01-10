@@ -1,0 +1,47 @@
+/* base.html */
+body{
+  background-color: #f0f8ff ;
+}
+
+.navbar{
+  background-color: #f0f8ff;
+
+}
+
+.nav-link{
+  color: #4682b4 ;
+}
+
+.container-fluid{
+  padding-top: 130px;
+}
+
+/* index.html */
+.index{
+  padding-top: 150px;
+}
+
+/* login.html, reset_password.html, reset.html and signup.html */
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 60px;
+}
+.checkbox {
+  font-size: small;
+}
+
+.check1{
+  width: 10px;
+  height: 10px;
+}
+
+.col-md-12{
+  padding-top: 10px;
+}
+
+/* profile.html */
+.display-6{
+  padding-top: 150px; 
+}
