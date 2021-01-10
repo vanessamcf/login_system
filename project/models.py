@@ -11,7 +11,6 @@ class User(UserMixin, db.Model):
   password = db.Column(db.String(100))
   username = db.Column(db.String(150))
 
-
   def __repr__(self):
       return 'User {}'.format(self.username)
 
