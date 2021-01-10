@@ -70,11 +70,7 @@ def reset_verified(token):
   if password:
     hashed_password = generate_password_hash(password, method='sha256')
     user.password = hashed_password
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 502d13213fc80dbd4e039647a5a0102d14a12ea3
     db.session.commit()
     flash('Your password has been updated! You are now able to log in', 'success')
     return redirect(url_for('auth.login'))
