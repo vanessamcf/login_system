@@ -1,5 +1,6 @@
 draft.md
 .flaskenv
+project/templates/login_options.html
 db.sqlite
 __pycache__/
 *.py[cod]
