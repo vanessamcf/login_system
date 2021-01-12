@@ -6,15 +6,15 @@ A Login system made entirely with Python using Flask login, Flask Dance and Flas
 
 ### Sign up and Login with email:
 
-![Sign up and Login email](project/GIFS/Login_system_signup_signin_email.gif)
+![Sign up and Login email](project/GIFS/login_system_signup_signin_email.gif)
 
 ### Forgot password:
 
-![Reset password](project/GIFS/Login_system_reset_pwd.gif)
+![Reset password](project/GIFS/login_system_reset_pwd.gif)
 
 ### Sign in with GitHub:
 
-![Sign in Github](project/GIFS/Login_system_signin_github.gif)
+![Sign in Github](project/GIFS/login_system_github.gif)
 
 
 ### Sign in with Google:
