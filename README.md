@@ -1,6 +1,6 @@
 # Login System
 
-A Login system made entirely with Python using Flask login, Flask Dance and Flask Mail. In this project the user is able to **Sign up**, **Sign in with email**, **Forgot password** and **Sign in with Github, Google, or Facebook**.
+A Login system made entirely with Python using Flask login, Flask Dance and Flask Mail. In this project the user is able to **Sign up**, **Sign in with email**, **Reset password** and **Sign in with Github, Google, or Facebook**.
 
 ## Demo
 
