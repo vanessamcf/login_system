@@ -166,6 +166,11 @@ These instructions will get you a copy of the project up and running on your loc
 - Terminal: `flask run`
 
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+
 ## Acknowledgments
 
 * [Tutorial - How To Add Authentication to Your App with Flask-Login](https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login)
