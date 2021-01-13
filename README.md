@@ -6,11 +6,11 @@ A Login system made entirely with Python using Flask login, Flask Dance and Flas
 
 ### Sign up and Login with email:
 
-![Sign up and Login email](project/GIFS/login_system_signup_signin_email.gif)
+![Sign up and Login email](project/GIFS/Login_system_signup_signin_email.gif)
 
 ### Forgot password:
 
-![Reset password](project/GIFS/login_system_reset_pwd.gif)
+![Reset password](project/GIFS/Login_system_reset_pwd.gif)
 
 ### Sign in with GitHub:
 
@@ -164,6 +164,11 @@ These instructions will get you a copy of the project up and running on your loc
 ### Run the application: 
 
 - Terminal: `flask run`
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 
 ## Acknowledgments
