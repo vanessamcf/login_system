@@ -143,7 +143,7 @@ These instructions will get you a copy of the project up and running on your loc
 11- Paste the **Client Secret** where is `'YOUR CLIENT SECRET'`
 
 
-## Configure Google account (Forgot password functionality):
+## Forgot password functionality (configure Google account):
 
 1 - Go into your Google account -> Manage your Google Account -> Security -> Less secure app access -> Turn on access -> Allow less secure app 
 
