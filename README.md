@@ -51,7 +51,7 @@ These instructions will get you a copy of the project up and running on your loc
 
      python3
      from project import db, create_app
-     db.creaye_all(app=create_app())
+     db.create_all(app=create_app())
      exit()
 
 ## Create your project inside Github/Google and Facebook Developer:
