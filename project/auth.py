@@ -34,7 +34,7 @@ def send_email(user):
 
   msg = Message()
   msg.subject = "Login System: Password Reset Request"
-  msg.sender = 'username@gmail.com'
+  msg.sender = 'mindaction6@gmail.com'
   msg.recipients = [user.email]
   msg.html = render_template('reset_pwd.html', user = user, token = token)
 

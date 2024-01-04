@@ -9,7 +9,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from . import db
 from .models import User, OAuth
 
-github_blueprint = make_github_blueprint(client_id = 'YOUR CLIENT ID', client_secret = 'YOUR CLIENT SECRET')
+github_blueprint = make_github_blueprint(client_id = '265fdf42279876e9db2b', client_secret = 'f0824187605f4c4359be9785ff7d4c275baf685e')
 
 google_blueprint = make_google_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET",  scope=[
         "openid",
