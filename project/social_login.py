@@ -11,7 +11,7 @@ from .models import User, OAuth
 
 github_blueprint = make_github_blueprint(client_id = '265fdf42279876e9db2b', client_secret = 'f0824187605f4c4359be9785ff7d4c275baf685e')
 
-google_blueprint = make_google_blueprint(client_id= "YOUR CLIENT ID", client_secret= "YOUR CLIENT SECRET",  scope=[
+google_blueprint = make_google_blueprint(client_id= "402144210609-b2mk8gsuur2g4aor3ah7mr2s757t0113.apps.googleusercontent.com", client_secret= "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",  scope=[
         "openid",
         "https://www.googleapis.com/auth/userinfo.email",
         "https://www.googleapis.com/auth/userinfo.profile",
